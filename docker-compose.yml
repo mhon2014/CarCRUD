@@ -1,0 +1,34 @@
+services:
+
+    database:
+      image: "postgres:alpine"
+      container_name: postgres
+      restart: always
+      volumes:
+        - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      ports:
+        - 5432:5432
+      environment:
+        POSTGRES_DB: car
+        POSTGRES_USER: user
+        POSTGRES_PASSWORD: password
+    
+    cache:
+      image: "redis:alpine"
+      container_name: redis
+      restart: always
+      ports:
+        - 6379:6379
+      environment:
+        REDIS_HOST: cache
+        REDIS_PORT: 6379
+        REDIS_PASSWORD: password
+      # command: redis-server --bind 0.0.0.0
+
+    server:
+      depends_on: 
+        - database
+        - cache
+      build: ./server
+      ports:
+        - 8000:8000
