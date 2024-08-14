@@ -4,7 +4,10 @@ import { Request, Response } from 'express';
 
 class CarController {
 
-    async create(req: Request, res: Response) {
+    /* 
+    use the info in the body of the request to insert the entry
+     */
+    async create(req: Request, res: Response): Promise<void> {
         //TODO
         //validate data before creation
 
@@ -20,7 +23,11 @@ class CarController {
 
     }
 
-    async getAll(req: Request, res: Response) {
+    /* 
+    Show all entry in the database
+     */
+
+    async getAll(req: Request, res: Response): Promise<void> {
         try {
 
             const result = await carService.findAll();
@@ -32,7 +39,11 @@ class CarController {
         }
     }
 
-    async getById(req: Request, res: Response) {
+    /* 
+    use ID in the body request to find the entry
+     */
+
+    async getById(req: Request, res: Response): Promise<void> {
 
         try {
 
@@ -51,10 +62,13 @@ class CarController {
         catch (error) {
             res.status(500);
         }
-        // return res.status(200).send(result);
     }
 
-    async update(req: Request, res: Response) {
+    /* 
+    use ID in the body request to find the entry and update with the body 
+     */
+
+    async update(req: Request, res: Response): Promise<void> {
 
         try {
 
@@ -78,7 +92,10 @@ class CarController {
 
     }
 
-    async delete(req: Request, res: Response) {
+    /* 
+    Controller, use ID in the body request to delete the entry
+     */
+    async delete(req: Request, res: Response): Promise<void> {
 
         try {
             const id = req.body.id;

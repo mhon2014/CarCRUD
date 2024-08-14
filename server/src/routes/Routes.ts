@@ -11,6 +11,8 @@ dotenv.config()
 const router = Router();
 const secretKey = process.env.SECRETKEY!;
 
+//Set up routes and middleware
+
 router.put('/create', [auth, admin], carController.create);
 
 router.get('/getall', [auth, guest],carController.getAll);

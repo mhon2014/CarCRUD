@@ -12,7 +12,7 @@ declare module "express-serve-static-core" {
 }
 
 
-async function auth(req: Request, res: Response, next: NextFunction) {
+async function auth(req: Request, res: Response, next: NextFunction) : Promise<void | Response >  {
 
     const key = req.header("x-api-key");
 

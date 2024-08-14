@@ -2,9 +2,12 @@ import { Car } from '../model';
 
 class CarService {
 
-    /*Insert entity into the database */
+    /*
+    Insert entity into the database 
+    returns the entry if succesfully inserted
+    */
 
-    async insert(payload: Car) {
+    async insert(payload: Car): Promise<Car> {
 
         const {registration_date, model, type, registration_number, color, build_year, brand, username} = payload
 
@@ -26,35 +29,36 @@ class CarService {
         }
         catch (error){
             console.log(error);
-            return (error);
+            return Promise.reject(error);
         }
     }
 
     /*
     Find by primary ID
+    returns the result if found
     */
 
-    async findByPk(id: number) {
+    async findByPk(id: number) : Promise<Car> {
         try {
-            const foundUser = await Car.findByPk(id);
+            const result = await Car.findByPk(id);
 
-            if (foundUser) {
-                return foundUser;
+            if (result) {
+                return result;
 
             } 
             else {
                 console.log('ID not found')
-                return null
+                return Promise.reject(null);
             }
 
         }
         catch (error){
             console.log(error);
-            return (error);
+            return Promise.reject(error);
         }
     }
 
-    async findAll() {
+    async findAll():Promise<Car[]> {
         try {
             const result = await Car.findAll();
 
@@ -62,43 +66,46 @@ class CarService {
         }
         catch (error){
             console.log(error);
-            return (error);
+            return Promise.reject(error);
         }
     }
 
     /* 
     Update a record in the database
+    returns the updated instance
      */
 
-    async updateByID(id:number, payload: Car) {
+    async updateByID(id:number, payload: Car) : Promise<Car> {
 
-        const {registration_date, model, type, registration_number, color, build_year, brand, username} = payload
+        const {registration_date, model, type, registration_number, color, build_year, brand, username} = payload;
 
         try {
             //find the ID and update the entry
-
             const foundUser = await Car.findByPk(id);
 
             if (foundUser) {
                 foundUser.set({registration_date, model, type, registration_number, color, build_year, brand, username});
                 await foundUser.save();
+                return foundUser;
             } 
             else {
-                console.log('ID not found')
+                console.log('ID not found');
+                return Promise.reject(null);
             }
             
         }
         catch (error){
             console.log(error);
-            return (error);
+            return Promise.reject(error);
         }
     }
 
     /* 
     Delete a record in the database
+    Returns true if succesful
      */
 
-    async deleteByID(id:number) {
+    async deleteByID(id:number): Promise<boolean> {
 
         try {
             
@@ -106,15 +113,17 @@ class CarService {
 
             if (foundUser) {
                 await foundUser.destroy();
+                return true;
             } 
             else {
                 console.log('ID not found')
+                return false;
             }
             
         }
         catch (error){
             console.log(error);
-            return (error);
+            return Promise.reject(error);
         }
     }
 }
@@ -122,19 +131,3 @@ class CarService {
 const carService = new CarService();
 
 export { carService };
-
-    // async function create() {
-        
-    // }
-
-    // async function read() {
-
-    // }
-
-    // async function update() {
-
-    // }
-
-    // async function remove() {
-
-    // }
