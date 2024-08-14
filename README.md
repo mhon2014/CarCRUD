@@ -1,7 +1,7 @@
 # Car Crud
 
-
 ### TODO
+
 * Unit testing
 * Security, Hash API Key / password
 * Data validation?
@@ -9,30 +9,32 @@
 ### Instructions
 
 ##### Makefile instruction
+
 ```make
 start:
-	docker-compose up -d
+ docker-compose up -d
 build:
-	docker-compose build
+ docker-compose build
 stop:
-	docker-compose stop
+ docker-compose stop
 clean:
-	docker-compose down --volumes
+ docker-compose down --volumes
 storage:
-	docker-compose up -d database cache
+ docker-compose up -d database cache
 ```
 
 ##### Getting started
 
-- Clone the Repo
+* Clone the Repo
 
-- Run 'make build' to build the images
+* Run 'make build' to build the images
 
-- Run 'make start' to run the containers
+* Run 'make start' to run the containers
 
-- Use postman or any API testing platform to use CRUD operations
+* Use postman or any API testing platform to perform CRUD operations
 
-- Routes for API are 
+* Routes for API are
+
 ```
  localhost:8000/api/v1/
 
@@ -49,5 +51,23 @@ storage:
 
  `Get` request are open to all with an API key while `create`, `update` and `delete` is only available with those with admin privileges.
 
- - `guestkey` is the API key for guest
- - `adminkey` is the API key for admin
+* `guestkey` is the API key for guest
+* `adminkey` is the API key for admin
+
+### Examples
+
+##### Get by ID
+
+![GetByID](/readmeimages/GetByID.png)
+
+##### Create
+
+![Create](/readmeimages/Create.png)
+
+##### Delete
+
+![Create](/readmeimages/Delete.png)
+
+##### Update
+
+![Create](/readmeimages/Update.png)
